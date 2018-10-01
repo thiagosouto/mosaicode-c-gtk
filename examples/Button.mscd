@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosaicode>
+ <version value="0.0.1"/>
+ <zoom value="1.0"/>
+ <language value="c"/>
+ <blocks>
+  <block collapsed="False" id="1" type="mosaicode_lib_c_gtk.extensions.blocks.Form.button">
+   <position x="200.0" y="100.0"/>
+   <property key="label" value="Label"/>
+  </block>
+  <block collapsed="False" id="2" type="mosaicode_lib_c_gtk.extensions.blocks.Form.button">
+   <position x="800.0" y="250.0"/>
+   <property key="label" value="Label"/>
+  </block>
+ </blocks>
+ <connections/>
+ <comments/>
+</mosaicode>
