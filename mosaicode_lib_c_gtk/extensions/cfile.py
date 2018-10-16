@@ -21,13 +21,17 @@ class CFile(CodeTemplate):
         self.extension = ".c"
         self.command = "g++ -o $dir_name$$filename$ $dir_name$$filename$$extension$ `pkg-config --cflags --libs gtk+-3.0`\n"
         self.command += "$dir_name$./$filename$"
-        self.code_parts = ["destroy","windows","function", "declaration", "configuration","show"]
+        self.code_parts = ["destroy","windows","function", "declaration", "configuration","show","struct","callback"]
         self.code = r"""
 #include <gtk/gtk.h>
+
+$code[struct]$
 
 $code[destroy]$
 
 $code[function]$
+
+$code[callback]$
 
 int main(int argc, char *argv[]){
 	
@@ -41,12 +45,12 @@ int main(int argc, char *argv[]){
 	$code[windows]$	
 
 
-   	$code[configuration]$
-   	$connections$
+  $code[configuration]$
+  $connections$
 
-   	$code[show]$
-   	gtk_main();
-   	return 0;
+  $code[show]$
+  gtk_main();
+  return 0;
 }
 """
 

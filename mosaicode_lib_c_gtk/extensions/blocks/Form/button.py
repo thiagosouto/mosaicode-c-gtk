@@ -26,7 +26,7 @@ class Button(BlockModel):
                             "value": "Label"
                             }
                            ]
-        self.codes["function"] = """
+        self.codes["callback"] = """
 void button_$id$_callback(void){
    g_print("Hello World\\n");
 }

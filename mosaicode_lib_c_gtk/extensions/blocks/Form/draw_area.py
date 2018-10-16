@@ -9,31 +9,29 @@ from mosaicode.model.blockmodel import BlockModel
 class Button(BlockModel):
 
     # -------------------------------------------------------------------------
-    def __init__(self):
-        BlockModel.__init__(self)
+	def __init__(self):
+		BlockModel.__init__(self)
 
-        self.language = "c"
-        self.framework = "gtk"
-        self.help = "Not to declare"
-        self.label = "Draw Area"
-        self.color = "250:150:150:150"
-        self.group = "Form"
-        self.ports = []
+		self.language = "c"
+		self.framework = "gtk"
+		self.help = "Not to declare"
+		self.label = "Draw Area"
+		self.color = "250:150:150:150"
+		self.group = "Form"
+		self.ports = []
 
-        self.properties = [{
-                            "name": "width",
+		self.properties = [{"name": "width",
                             "label": "Width",
-                            "type": MOSAICODE_INT,
+                            "type": MOSAICODE_FLOAT,
                             "value": "100"
-                            }
-                            {
-                            "name": "height",
+                            },
+                            {"name": "height",
                             "label": "Height",
-                            "type": MOSAICODE_INT,
+                            "type": MOSAICODE_FLOAT,
                             "value": "100"
                             }
                            ]
-        self.codes["function"] = """
+		self.codes["function"] = """
 static cairo_surface_t *surface = NULL;
 
 static void clear_surface (void)
@@ -142,28 +140,29 @@ close_window (void)
 
 
 """
-        self.codes["declaration"] = """
-   GtkWidget *$draw_area$_$id$;
-   GtkWidget *$frame$_$id$;
+		self.codes["declaration"] = """
+   GtkWidget *draw_area_$id$;
+   GtkWidget *frame_$id$;
 """
 
-        self.codes["configuration"] = """
-   *$frame$_$id$; = gtk_frame_new (NULL);
-   gtk_frame_set_shadow_type (GTK_FRAME ($frame$_$id$), GTK_SHADOW_IN);
-   gtk_container_add(GTK_CONTAINER(vbox), $frame$_$id$);
+		self.codes["configuration"] = """
+    frame_$id$ = gtk_frame_new (NULL);
+    gtk_frame_set_shadow_type (GTK_FRAME (frame_$id$), GTK_SHADOW_IN);
+    gtk_container_add(GTK_CONTAINER(vbox), frame_$id$);
 
 
-   $draw_area$_$id$ = gtk_drawing_area_new ();
-   gtk_widget_set_size_request ($draw_area$_$id$, $prop[width]$, $prop[height]$);
+    draw_area_$id$ = gtk_drawing_area_new ();
+    gtk_widget_set_size_request (draw_area_$id$, $prop[width]$, $prop[height]$);
 
-   gtk_container_add (GTK_CONTAINER ($frame$_$id$), $draw_area$_$id$);
+    gtk_container_add (GTK_CONTAINER (frame_$id$), draw_area_$id$);
 
-   g_signal_connect ($draw_area$_$id$, "draw", G_CALLBACK (draw_cb), NULL);
-   g_signal_connect ($draw_area$_$id$,"configure-event",G_CALLBACK (configure_event_cb), NULL);
+    g_signal_connect (draw_area_$id$, "draw", G_CALLBACK (draw_cb), NULL);
+    g_signal_connect (draw_area_$id$,"configure-event",G_CALLBACK (configure_event_cb), NULL);
 
 
-   g_signal_connect ($draw_area$_$id$, "motion-notify-event",G_CALLBACK (motion_notify_event_cb), NULL);
-   g_signal_connect ($draw_area$_$id$, "button-press-event",G_CALLBACK (button_press_event_cb), NULL);
+    g_signal_connect (draw_area_$id$, "motion-notify-event",G_CALLBACK (motion_notify_event_cb), NULL);
+    g_signal_connect (draw_area_$id$, "button-press-event",G_CALLBACK (button_press_event_cb), NULL);
 
-   gtk_widget_set_events ($draw_area$_$id$, gtk_widget_get_events ($draw_area$_$id$)| GDK_BUTTON_PRESS_MASK| GDK_POINTER_MOTION_MASK);
+    gtk_widget_set_events (draw_area_$id$, gtk_widget_get_events (draw_area_$id$)| GDK_BUTTON_PRESS_MASK| GDK_POINTER_MOTION_MASK);
+
 """

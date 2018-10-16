@@ -24,6 +24,16 @@ class Button(BlockModel):
                             "label": "Label",
                             "type": MOSAICODE_STRING,
                             "value": "Label"
+                            },
+                            {"name": "width",
+                            "label": "Width",
+                            "type": MOSAICODE_FLOAT,
+                            "value": "800"
+                            },
+                            {"name": "height",
+                            "label": "Height",
+                            "type": MOSAICODE_FLOAT,
+                            "value": "600"
                             }
                            ]
         self.codes["function"] = """
@@ -42,7 +52,7 @@ void destroy_$id$(void){
 	window_$id$ = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window_$id$),"$prop[label]$"); 				
 	g_signal_connect(window_$id$, "destroy",G_CALLBACK(destroy_$id$), NULL);
-	gtk_window_resize(GTK_WINDOW(window_$id$), 800, 600);
+	gtk_window_resize(GTK_WINDOW(window_$id$), $prop[width]$, (int)$prop[height]$);
 	gtk_container_add(GTK_CONTAINER(window_$id$), vbox);
 """
 
